@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjv30w7lbdp5x"]
+
+[ext_resource type="Script" path="res://demos/SelectableSpatials.gd" id="1_5d6gy"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource( "1_5d6gy" )
