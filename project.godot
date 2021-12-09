@@ -10,12 +10,12 @@ config_version=5
 
 _global_script_classes=[{
 "base": "Node",
-"class": &"Context",
+"class": &"SelectionManager",
 "language": &"GDScript",
-"path": "res://addons/selections/Context.gd"
+"path": "res://addons/selections/SelectionManager.gd"
 }]
 _global_script_class_icons={
-"Context": ""
+"SelectionManager": ""
 }
 
 [application]

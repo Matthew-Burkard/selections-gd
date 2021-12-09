@@ -1,4 +1,5 @@
-class_name Context
+# Use to manage selectable Nodes.
+class_name SelectionManager
 extends Node
 
 enum SelectionChange {
@@ -20,23 +21,23 @@ var _deselect_all: bool = true
 
 func add(target: Node) -> void:
 	_deselect_all = false
-	if "select" in target:
-		target.select()
+	if "set_selected" in target:
+		target.set_selected(true)
 	_selections.append(target)
 	emit_signal("selection_changed", SelectionChange.ADD, target)
 
 
 func remove(target: Node) -> void:
 	_deselect_all = false
-	if "deselect" in target:
-		target.deselect()
+	if "set_selected" in target:
+		target.set_selected(false)
 	_selections.erase(target)
 	emit_signal("selection_changed", SelectionChange.REMOVE, target)
 
 
 func _unhandled_input(event) -> void:
 	# If left mouse button pressed set _deselect_all to true.
-	# If left button released and nothing has been activated, deselect all.
+	# If left button released and nothing has been added/removed, deselect all.
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			_deselect_all = true
