@@ -24,3 +24,7 @@ config/name="Selections"
 run/main_scene="res://demos/SelectableSpatials.tscn"
 config/icon="res://icon.png"
 config/features=PackedStringArray("4.0", "Vulkan Clustered")
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/selections/plugin.cfg")
