@@ -1,5 +1,7 @@
 extends Node3D
 
 
+var selection_manager = SelectionManager.new()
+
 func _ready():
-	pass
+	print(SelectionManager.new())

@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://cjv30w7lbdp5x"]
+[gd_scene load_steps=4 format=3 uid="uid://cjv30w7lbdp5x"]
 
 [ext_resource type="Script" path="res://demos/SelectableSpatials.gd" id="1_5d6gy"]
+[ext_resource type="Script" path="res://addons/selections/SelectableStaticBody3D.gd" id="2_knsq3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_biefu"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource( "1_5d6gy" )
+
+[node name="SelectableStaticBody3D" type="StaticBody3D" parent="."]
+script = ExtResource( "2_knsq3" )
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SelectableStaticBody3D"]
+shape = SubResource( "BoxShape3D_biefu" )
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.28557)
