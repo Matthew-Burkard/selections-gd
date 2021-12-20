@@ -9,12 +9,18 @@
 config_version=5
 
 _global_script_classes=[{
-"base": "Node",
+"base": "StaticBody3D",
+"class": &"SelectableStaticBody3D",
+"language": &"GDScript",
+"path": "res://addons/selections/SelectableStaticBody3D.gd"
+}, {
+"base": "Node3D",
 "class": &"SelectionManager",
 "language": &"GDScript",
 "path": "res://addons/selections/SelectionManager.gd"
 }]
 _global_script_class_icons={
+"SelectableStaticBody3D": "",
 "SelectionManager": ""
 }
 

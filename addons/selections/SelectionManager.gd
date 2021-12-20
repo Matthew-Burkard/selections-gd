@@ -1,6 +1,5 @@
-# Use to manage selectable Nodes.
 class_name SelectionManager
-extends Node
+extends Node3D
 
 enum SelectionChange {
 	ADD,
@@ -17,6 +16,18 @@ signal selection_changed(change: SelectionChange, target: Node)
 var mode: SelectionMode = SelectionMode.MULTIPLE
 var _selections: Array = []
 var _deselect_all: bool = true
+
+
+func get_class():
+	return "SelectionManager"
+
+
+func toggle(target: Node) -> bool:
+	if target in _selections:
+		remove(target)
+		return true
+	add(target)
+	return false
 
 
 func add(target: Node) -> void:
