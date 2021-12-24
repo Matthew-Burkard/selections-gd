@@ -13,7 +13,8 @@ enum SelectionMode {
 
 signal selection_changed(change: SelectionChange, target: Node)
 
-var mode: SelectionMode = SelectionMode.MULTIPLE
+@export var selection_mode: SelectionMode = SelectionMode.MULTIPLE
+
 var _selections: Array = []
 var _deselect_all: bool = true
 
