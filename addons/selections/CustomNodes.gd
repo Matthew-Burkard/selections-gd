@@ -4,12 +4,6 @@ extends EditorPlugin
 
 func _enter_tree() -> void:
 	add_custom_type(
-		"SelectableStaticBody3D",
-		"StaticBody3D",
-		preload("res://addons/selections/SelectableStaticBody3D.gd"),
-		null
-	)
-	add_custom_type(
 		"SelectionManager",
 		"Node3D",
 		preload("res://addons/selections/SelectionManager.gd"),

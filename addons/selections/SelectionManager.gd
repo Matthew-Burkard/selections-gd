@@ -53,6 +53,8 @@ func _unhandled_input(event) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			_deselect_all = true
+		# SelectionManager may need an "active" variable to prevent this from
+		# being triggered by out of scope unhandled inputs.
 		elif _deselect_all:
 			_reselect([])
 			_deselect_all = false
