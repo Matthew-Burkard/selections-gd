@@ -38,11 +38,11 @@ func activate(target: Node) -> bool:
 		_reselect([target])
 		return true
 
-	var multi_select = Input.is_key_pressed(multi_select_key)
-	if multi_select and is_selected:
+	var multi_select_pressed = Input.is_key_pressed(multi_select_key)
+	if multi_select_pressed and is_selected:
 		remove(target)
 		return false
-	if multi_select:
+	if multi_select_pressed:
 		add(target)
 		return true
 	_reselect([target])
@@ -66,14 +66,15 @@ func remove(target: Node) -> void:
 
 
 func _unhandled_input(event) -> void:
-	var multi_select = Input.is_key_pressed(multi_select_key)
+	var multi_select_pressed = Input.is_key_pressed(multi_select_key)
 	# If left mouse button pressed set _deselect_all to true.
 	# If left button released and nothing has been added/removed, deselect all.
 	if (
 		event is InputEventMouseButton
 		and event.button_index == MOUSE_BUTTON_LEFT
 	):
-		if event.pressed and not multi_select:
+		var is_multi = (multi_select_pressed and selection_mode == SelectionMode.MULTIPLE)
+		if event.pressed and not is_multi:
 			_deselect_all = true
 		# SelectionManager may need an "active" variable to prevent this from
 		# being triggered by out of scope unhandled inputs.
