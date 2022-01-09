@@ -42,6 +42,8 @@ func add(target: Node) -> void:
 func remove(target: Node) -> void:
 	_deselect_all = false
 	_selections.erase(target)
+	if target.has_method("on_deselect"):
+		target.on_deselect()
 	emit_signal("selection_changed", SelectionChange.REMOVE, target)
 
 
