@@ -11,9 +11,15 @@ enum SelectionMode {
 	MULTIPLE
 }
 
+enum MultiSelectKey {
+	CTRL = KEY_CTRL,
+	SHIFT = KEY_SHIFT
+}
+
 signal selection_changed(change: SelectionChange, target: Node)
 
 @export var selection_mode: SelectionMode = SelectionMode.MULTIPLE
+@export var multi_select_key: MultiSelectKey = MultiSelectKey.CTRL
 
 var _selections: Array = []
 var _deselect_all: bool = true
@@ -27,7 +33,13 @@ func toggle(target: Node) -> bool:
 	if target in _selections:
 		remove(target)
 		return true
-	add(target)
+	if (
+		selection_mode == SelectionMode.MULTIPLE
+		and Input.is_key_pressed(multi_select_key)
+	):
+		add(target)
+	else:
+		_reselect([target])
 	return false
 
 
@@ -50,7 +62,10 @@ func remove(target: Node) -> void:
 func _unhandled_input(event) -> void:
 	# If left mouse button pressed set _deselect_all to true.
 	# If left button released and nothing has been added/removed, deselect all.
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	if (
+		event is InputEventMouseButton
+		and event.button_index == MOUSE_BUTTON_LEFT
+	):
 		if event.pressed:
 			_deselect_all = true
 		# SelectionManager may need an "active" variable to prevent this from
@@ -65,3 +80,6 @@ func _reselect(new_selection: Array) -> void:
 	for node in all_selections:
 		if not new_selection.has(node):
 			remove(node)
+	for node in new_selection:
+		if not _selections.has(node):
+			add(node)
