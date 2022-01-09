@@ -33,16 +33,14 @@ func toggle(target: Node) -> bool:
 
 func add(target: Node) -> void:
 	_deselect_all = false
-	if "set_selected" in target:
-		target.set_selected(true)
 	_selections.append(target)
+	if target.has_method("on_select"):
+		target.on_select()
 	emit_signal("selection_changed", SelectionChange.ADD, target)
 
 
 func remove(target: Node) -> void:
 	_deselect_all = false
-	if "set_selected" in target:
-		target.set_selected(false)
 	_selections.erase(target)
 	emit_signal("selection_changed", SelectionChange.REMOVE, target)
 
