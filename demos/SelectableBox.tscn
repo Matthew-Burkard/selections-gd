@@ -1,10 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bg7q0ep4lsqmh"]
+[gd_scene load_steps=4 format=3 uid="uid://bg7q0ep4lsqmh"]
+
+[ext_resource type="Script" path="res://demos/SelectableBox.gd" id="1_nukja"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_iri8k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_affhc"]
 
-[node name="StaticBody3D" type="StaticBody3D"]
+[node name="SelectableBox" type="StaticBody3D"]
+script = ExtResource( "1_nukja" )
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource( "BoxMesh_iri8k" )

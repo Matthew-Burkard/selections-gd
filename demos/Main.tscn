@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3s8idf6adgtp"]
+[gd_scene load_steps=3 format=3 uid="uid://c3s8idf6adgtp"]
 
+[ext_resource type="Script" path="res://addons/selections/SelectionManager.gd" id="1_6s8yn"]
 [ext_resource type="PackedScene" uid="uid://bg7q0ep4lsqmh" path="res://demos/SelectableBox.tscn" id="1_qrb1f"]
 
 [node name="Node3D" type="Node3D"]
@@ -7,4 +8,7 @@
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
 
-[node name="StaticBody3D" parent="." instance=ExtResource( "1_qrb1f" )]
+[node name="SelectionManager" type="Node3D" parent="."]
+script = ExtResource( "1_6s8yn" )
+
+[node name="SelectableBox" parent="SelectionManager" instance=ExtResource( "1_qrb1f" )]
