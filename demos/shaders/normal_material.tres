@@ -1,0 +1,26 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bmi5j20ug05po"]
+
+[ext_resource type="Shader" path="res://demos/shaders/normal_material.gdshader" id="1_q64jy"]
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_vrjd1"]
+transparency = 1
+albedo_color = Color(0.364706, 0.560784, 1, 1)
+
+[sub_resource type="VisualScript" id="VisualScript_3s022"]
+data = {
+"base_type": &"ShaderMaterial",
+"data_connections": [],
+"functions": [],
+"is_tool_script": false,
+"nodes": [],
+"scroll": Vector2(-89.5702, -191.049),
+"sequence_connections": [],
+"signals": [],
+"variables": []
+}
+
+[resource]
+render_priority = 0
+next_pass = SubResource( "ORMMaterial3D_vrjd1" )
+shader = ExtResource( "1_q64jy" )
+script = SubResource( "VisualScript_3s022" )

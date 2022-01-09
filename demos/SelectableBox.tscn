@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bg7q0ep4lsqmh"]
+[gd_scene load_steps=5 format=3 uid="uid://bg7q0ep4lsqmh"]
 
 [ext_resource type="Script" path="res://demos/SelectableBox.gd" id="1_nukja"]
+[ext_resource type="Material" uid="uid://bmi5j20ug05po" path="res://demos/shaders/normal_material.tres" id="2_k6m1h"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_iri8k"]
 
@@ -9,8 +10,9 @@
 [node name="SelectableBox" type="StaticBody3D"]
 script = ExtResource( "1_nukja" )
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="BoxMesh" type="MeshInstance3D" parent="."]
 mesh = SubResource( "BoxMesh_iri8k" )
+surface_material_override/0 = ExtResource( "2_k6m1h" )
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource( "BoxShape3D_affhc" )

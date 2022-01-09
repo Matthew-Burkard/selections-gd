@@ -1,11 +1,16 @@
 extends StaticBody3D
 
+var select_shader = preload("res://demos/shaders/selected_material.tres")
+var normal_shader = preload("res://demos/shaders/normal_material.tres")
+
 
 func on_select() -> void:
+	$BoxMesh.set_material_override(select_shader)
 	print("box selected")
 
 
 func on_deselect() -> void:
+	$BoxMesh.set_material_override(normal_shader)
 	print("box deselected")
 
 
