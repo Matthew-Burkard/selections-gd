@@ -1,17 +1,19 @@
 extends StaticBody3D
 
-var select_shader = preload("res://demos/shaders/selected/selected_material.tres")
-var normal_shader = preload("res://demos/shaders/normal/normal_material.tres")
-
+const select_shader = preload("res://demos/shaders/selected/selected_material.tres")
+const normal_shader = preload("res://demos/shaders/normal/normal_material.tres")
+var selection_manager: SelectionManager
 
 func on_select() -> void:
 	$BoxMesh.set_material_override(select_shader)
-	print("box selected")
 
 
 func on_deselect() -> void:
 	$BoxMesh.set_material_override(normal_shader)
-	print("box deselected")
+
+
+func _ready() -> void:
+	selection_manager = _get_selection_manager()
 
 
 func _input_event(
@@ -26,12 +28,7 @@ func _input_event(
 		and event.button_index == MOUSE_BUTTON_LEFT
 		and event.pressed
 	):
-		var manager: SelectionManager = _get_selection_manager()
-		if manager != null:
-			manager.activate(self)
-		else:
-			# TODO Logger.
-			print("warn: no SelectionManager found.")
+		selection_manager.activate(self)
 
 
 func _get_selection_manager() -> SelectionManager:
