@@ -1,5 +1,5 @@
 class_name SelectionManager
-extends Node3D
+extends Node
 
 enum SelectionChange {
 	ADD,
@@ -25,22 +25,28 @@ var _selections: Array = []
 var _deselect_all: bool = true
 
 
-func get_class():
+func get_class() -> String:
 	return "SelectionManager"
 
 
-func toggle(target: Node) -> bool:
-	if target in _selections:
-		remove(target)
-		return true
-	if (
-		selection_mode == SelectionMode.MULTIPLE
-		and Input.is_key_pressed(multi_select_key)
-	):
-		add(target)
-	else:
+func activate(target: Node) -> bool:
+	var is_selected = _selections.has(target)
+	if selection_mode == SelectionMode.SINGLE:
+		if is_selected:
+			remove(target)
+			return false
 		_reselect([target])
-	return false
+		return true
+
+	var multi_select = Input.is_key_pressed(multi_select_key)
+	if multi_select and is_selected:
+		remove(target)
+		return false
+	if multi_select:
+		add(target)
+		return true
+	_reselect([target])
+	return true
 
 
 func add(target: Node) -> void:
@@ -60,13 +66,14 @@ func remove(target: Node) -> void:
 
 
 func _unhandled_input(event) -> void:
+	var multi_select = Input.is_key_pressed(multi_select_key)
 	# If left mouse button pressed set _deselect_all to true.
 	# If left button released and nothing has been added/removed, deselect all.
 	if (
 		event is InputEventMouseButton
 		and event.button_index == MOUSE_BUTTON_LEFT
 	):
-		if event.pressed:
+		if event.pressed and not multi_select:
 			_deselect_all = true
 		# SelectionManager may need an "active" variable to prevent this from
 		# being triggered by out of scope unhandled inputs.
