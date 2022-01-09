@@ -1,10 +1,10 @@
-[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bmi5j20ug05po"]
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://cjllkgvdpyy1"]
 
-[ext_resource type="Shader" path="res://demos/shaders/normal_material.gdshader" id="1_q64jy"]
+[ext_resource type="Shader" path="res://demos/shaders/selected/selected_material.gdshader" id="1_2pi3u"]
 
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_vrjd1"]
 transparency = 1
-albedo_color = Color(0.364706, 0.560784, 1, 1)
+albedo_color = Color(0.556863, 1, 0.482353, 1)
 
 [sub_resource type="VisualScript" id="VisualScript_3s022"]
 data = {
@@ -22,5 +22,5 @@ data = {
 [resource]
 render_priority = 0
 next_pass = SubResource( "ORMMaterial3D_vrjd1" )
-shader = ExtResource( "1_q64jy" )
+shader = ExtResource( "1_2pi3u" )
 script = SubResource( "VisualScript_3s022" )

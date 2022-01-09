@@ -1,7 +1,7 @@
 extends StaticBody3D
 
-var select_shader = preload("res://demos/shaders/selected_material.tres")
-var normal_shader = preload("res://demos/shaders/normal_material.tres")
+var select_shader = preload("res://demos/shaders/selected/selected_material.tres")
+var normal_shader = preload("res://demos/shaders/normal/normal_material.tres")
 
 
 func on_select() -> void:
@@ -28,7 +28,7 @@ func _input_event(
 	):
 		var manager: SelectionManager = _get_selection_manager()
 		if manager != null:
-			manager.toggle(self)
+			manager.activate(self)
 		else:
 			# TODO Logger.
 			print("warn: no SelectionManager found.")
