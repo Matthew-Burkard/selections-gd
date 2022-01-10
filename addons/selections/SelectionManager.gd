@@ -1,6 +1,11 @@
 class_name SelectionManager
 extends Node
 
+enum SelectableChange {
+	ADD,
+	REMOVE
+}
+
 enum SelectionChange {
 	ADD,
 	REMOVE
@@ -17,10 +22,12 @@ enum MultiSelectKey {
 }
 
 signal selection_changed(change: SelectionChange, target: Node)
+signal selectables_changed(change: SelectableChange, target: Node)
 
 @export var selection_mode: SelectionMode = SelectionMode.MULTIPLE
 @export var multi_select_key: MultiSelectKey = MultiSelectKey.CTRL
 
+var _selectables: Array = []
 var _selections: Array = []
 var _deselect_all: bool = true
 
@@ -33,23 +40,38 @@ func activate(target: Node) -> bool:
 	var is_selected = _selections.has(target)
 	if selection_mode == SelectionMode.SINGLE:
 		if is_selected:
-			remove(target)
+			deselect(target)
 			return false
 		_reselect([target])
 		return true
 
 	var multi_select_pressed = Input.is_key_pressed(multi_select_key)
 	if multi_select_pressed and is_selected:
-		remove(target)
+		deselect(target)
 		return false
 	if multi_select_pressed:
-		add(target)
+		select(target)
 		return true
 	_reselect([target])
 	return true
 
 
-func add(target: Node) -> void:
+func get_selectables() -> Array:
+	return _selectables
+
+
+func register_selectable(node: Node) -> void:
+	if not _selectables.has(node):
+		_selectables.append(node)
+
+
+func unregister_selectable(node: Node) -> void:
+	if _selectables.has(node):
+		_selectables.erase(node)
+	_selectables.append(node)
+
+
+func select(target: Node) -> void:
 	_deselect_all = false
 	_selections.append(target)
 	if target.has_method("on_select"):
@@ -57,7 +79,7 @@ func add(target: Node) -> void:
 	emit_signal("selection_changed", SelectionChange.ADD, target)
 
 
-func remove(target: Node) -> void:
+func deselect(target: Node) -> void:
 	_deselect_all = false
 	_selections.erase(target)
 	if target.has_method("on_deselect"):
@@ -87,7 +109,7 @@ func _reselect(new_selection: Array) -> void:
 	var all_selections = _selections.duplicate()
 	for node in all_selections:
 		if not new_selection.has(node):
-			remove(node)
+			deselect(node)
 	for node in new_selection:
 		if not _selections.has(node):
-			add(node)
+			select(node)
