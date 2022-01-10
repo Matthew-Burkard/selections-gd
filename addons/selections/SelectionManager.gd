@@ -1,7 +1,7 @@
 class_name SelectionManager
 extends Node
 
-enum SelectableChange {
+enum SelectablesChange {
 	ADD,
 	REMOVE
 }
@@ -22,7 +22,7 @@ enum MultiSelectKey {
 }
 
 signal selection_changed(change: SelectionChange, target: Node)
-signal selectables_changed(change: SelectableChange, target: Node)
+signal selectables_changed(change: SelectablesChange, target: Node)
 
 @export var selection_mode: SelectionMode = SelectionMode.MULTIPLE
 @export var multi_select_key: MultiSelectKey = MultiSelectKey.CTRL
@@ -63,12 +63,13 @@ func get_selectables() -> Array:
 func register(node: Node) -> void:
 	if not _selectables.has(node):
 		_selectables.append(node)
+		emit_signal("selectables_changed", SelectablesChange.ADD, node)
 
 
 func unregister(node: Node) -> void:
 	if _selectables.has(node):
 		_selectables.erase(node)
-	_selectables.append(node)
+		emit_signal("selectables_changed", SelectablesChange.REMOVE, node)
 
 
 func select(target: Node) -> void:
