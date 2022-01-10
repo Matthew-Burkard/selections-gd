@@ -1,7 +1,7 @@
 extends StaticBody3D
 
-const select_shader = preload("res://demos/shaders/selected/selected_material.tres")
-const normal_shader = preload("res://demos/shaders/normal/normal_material.tres")
+const select_shader = preload("res://demos/materials/selected/selected_material.tres")
+const normal_shader = preload("res://demos/materials/normal/normal_material.tres")
 var selection_manager: SelectionManager
 
 func on_select() -> void:
@@ -14,6 +14,7 @@ func on_deselect() -> void:
 
 func _ready() -> void:
 	selection_manager = _get_selection_manager()
+	selection_manager.register(self)
 
 
 func _input_event(

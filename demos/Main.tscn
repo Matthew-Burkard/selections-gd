@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c3s8idf6adgtp"]
 
 [ext_resource type="Script" path="res://addons/selections/SelectionManager.gd" id="1_6s8yn"]
-[ext_resource type="PackedScene" uid="uid://come0ww254e6c" path="res://demos/SelectableBox.tscn" id="1_qrb1f"]
+[ext_resource type="PackedScene" uid="uid://bae8hd12dv0ti" path="res://demos/selectablebox/SelectableBox.tscn" id="1_qrb1f"]
 
 [node name="Node3D" type="Node3D"]
 

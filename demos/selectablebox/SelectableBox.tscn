@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://bae8hd12dv0ti"]
+
+[ext_resource type="Script" path="res://demos/selectablebox/SelectableBox.gd" id="1_6tb1f"]
+[ext_resource type="Material" uid="uid://dgqpsg5e2wgsa" path="res://demos/materials/normal/normal_material.tres" id="2_esbb5"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_iri8k"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_affhc"]
+
+[node name="SelectableBox" type="StaticBody3D"]
+script = ExtResource( "1_6tb1f" )
+
+[node name="BoxMesh" type="MeshInstance3D" parent="."]
+mesh = SubResource( "BoxMesh_iri8k" )
+surface_material_override/0 = ExtResource( "2_esbb5" )
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource( "BoxShape3D_affhc" )
