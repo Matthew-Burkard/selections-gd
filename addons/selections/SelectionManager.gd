@@ -60,12 +60,12 @@ func get_selectables() -> Array:
 	return _selectables
 
 
-func register_selectable(node: Node) -> void:
+func register(node: Node) -> void:
 	if not _selectables.has(node):
 		_selectables.append(node)
 
 
-func unregister_selectable(node: Node) -> void:
+func unregister(node: Node) -> void:
 	if _selectables.has(node):
 		_selectables.erase(node)
 	_selectables.append(node)
