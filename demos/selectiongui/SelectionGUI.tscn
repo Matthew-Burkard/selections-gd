@@ -5,7 +5,6 @@
 [node name="SelectablesList" type="ItemList"]
 anchor_bottom = 1.0
 offset_right = 165.0
-allow_rmb_select = true
 script = ExtResource( "1_k362k" )
 __meta__ = {
 "_edit_use_anchors_": false

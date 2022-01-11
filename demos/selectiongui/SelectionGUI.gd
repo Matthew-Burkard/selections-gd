@@ -1,31 +1,38 @@
 extends ItemList
 
 var selection_manager: SelectionManager
-var node_to_index = {}
+var _node_to_index = {}
 
 
-func _on_item_activated(index: int) -> void:
-	var selected = is_selected(index)
-	for node in node_to_index.keys():
-		if node_to_index[node] == index:
-			selection_manager.select(node) if selected else selection_manager.deselect(node)
-			return
+func _on_multi_selected(index: int, selected: bool) -> void:
+	if selected:
+		if get_selected_items().size() > 1:
+			selection_manager.select(get_item_metadata(index))
+		else:
+			selection_manager.set_selection([get_item_metadata(index)])
+	else:
+		selection_manager.deselect(get_item_metadata(index))
+
+
+func _on_item_selected(index: int) -> void:
+	selection_manager.set_selection([get_item_metadata(index)])
 
 
 func _on_selecatables_change(change: SelectionManager.SelectablesChange, node: Node) -> void:
 	if change == SelectionManager.SelectablesChange.ADD:
-		node_to_index[node] = add_item(node.name)
+		_node_to_index[node] = add_item(node.name)
+		set_item_metadata(_node_to_index[node], node)
 	else:
-		remove_item(node_to_index[node])
+		remove_item(_node_to_index[node])
 
 
 func _on_selection_change(
 	change: SelectionManager.SelectablesChange, node: Node
 ) -> void:
 	if change == SelectionManager.SelectionChange.ADD:
-		select(node_to_index[node])
+		select(_node_to_index[node], false)
 	else:
-		deselect(node_to_index[node])
+		deselect(_node_to_index[node])
 
 
 func _ready():
@@ -36,9 +43,11 @@ func _ready():
 		select_mode = ItemList.SELECT_MULTI
 	selection_manager.connect("selectables_changed", _on_selecatables_change)
 	selection_manager.connect("selection_changed", _on_selection_change)
-	connect("item_activated", _on_item_activated)
+	connect("item_selected", _on_item_selected)
+	connect("multi_selected", _on_multi_selected)
 	for node in selection_manager.get_selectables():
-		node_to_index[node] = add_item(node.name)
+		_node_to_index[node] = add_item(node.name)
+		set_item_metadata(_node_to_index[node], node)
 	
 
 

@@ -16,10 +16,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8051, 1.82998, 3.75794)
 script = ExtResource( "1_6s8yn" )
 
 [node name="SelectableBox" parent="SelectionManagerMulti" instance=ExtResource( "1_qrb1f" )]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -2, 0)
 
 [node name="SelectableBox2" parent="SelectionManagerMulti" instance=ExtResource( "1_qrb1f" )]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 
 [node name="SelectableBox3" parent="SelectionManagerMulti" instance=ExtResource( "1_qrb1f" )]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -2, 0)
@@ -30,10 +30,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -2, 0)
 script = ExtResource( "1_6s8yn" )
 
 [node name="SelectableBox" parent="SelectionManagerSingle" instance=ExtResource( "1_qrb1f" )]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 0)
 
 [node name="SelectableBox2" parent="SelectionManagerSingle" instance=ExtResource( "1_qrb1f" )]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="SelectableBox3" parent="SelectionManagerSingle" instance=ExtResource( "1_qrb1f" )]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, 0)
