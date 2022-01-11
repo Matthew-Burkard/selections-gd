@@ -93,7 +93,7 @@ func _unhandled_input(event) -> void:
 	# If left mouse button pressed set _deselect_all to true.
 	# If left button released and nothing has been added/removed, deselect all.
 	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT):
-		var is_multi = (multi_select_pressed and select_mode == SelectMode.MULTIPLE)
+		var is_multi = (multi_select_pressed and select_mode == SelectMode.MULTI)
 		if event.pressed and not is_multi:
 			_deselect_all = true
 		# SelectionManager may need an "active" variable to prevent this from
