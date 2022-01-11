@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3s8idf6adgtp"]
+[gd_scene load_steps=4 format=3 uid="uid://c3s8idf6adgtp"]
 
 [ext_resource type="Script" path="res://addons/selections/SelectionManager.gd" id="1_6s8yn"]
 [ext_resource type="PackedScene" uid="uid://bae8hd12dv0ti" path="res://demos/selectablebox/SelectableBox.tscn" id="1_qrb1f"]
+[ext_resource type="PackedScene" uid="uid://pv0jhys8x7yp" path="res://demos/selectiongui/SelectionGUI.tscn" id="3_amknp"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -23,9 +24,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -2, 0)
 [node name="SelectableBox3" parent="SelectionManagerMulti" instance=ExtResource( "1_qrb1f" )]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -2, 0)
 
+[node name="SelectablesList" parent="SelectionManagerMulti" instance=ExtResource( "3_amknp" )]
+
 [node name="SelectionManagerSingle" type="Node" parent="."]
 script = ExtResource( "1_6s8yn" )
-selection_mode = 0
 
 [node name="SelectableBox" parent="SelectionManagerSingle" instance=ExtResource( "1_qrb1f" )]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)

@@ -11,9 +11,9 @@ enum SelectionChange {
 	REMOVE
 }
 
-enum SelectionMode {
+enum SelectMode {
 	SINGLE,
-	MULTIPLE
+	MULTI
 }
 
 enum MultiSelectKey {
@@ -22,9 +22,9 @@ enum MultiSelectKey {
 }
 
 signal selection_changed(change: SelectionChange, target: Node)
-signal selectables_changed(change: SelectablesChange, target: Node)
+signal selectables_changed(change: SelectablesChange, node: Node)
 
-@export var selection_mode: SelectionMode = SelectionMode.MULTIPLE
+@export var select_mode: SelectMode = SelectMode.MULTI
 @export var multi_select_key: MultiSelectKey = MultiSelectKey.CTRL
 
 var _selectables: Array = []
@@ -38,7 +38,7 @@ func get_class() -> String:
 
 func activate(target: Node) -> bool:
 	var is_selected = _selections.has(target)
-	if selection_mode == SelectionMode.SINGLE:
+	if select_mode == SelectMode.SINGLE:
 		if is_selected:
 			deselect(target)
 			return false
@@ -92,11 +92,8 @@ func _unhandled_input(event) -> void:
 	var multi_select_pressed = Input.is_key_pressed(multi_select_key)
 	# If left mouse button pressed set _deselect_all to true.
 	# If left button released and nothing has been added/removed, deselect all.
-	if (
-		event is InputEventMouseButton
-		and event.button_index == MOUSE_BUTTON_LEFT
-	):
-		var is_multi = (multi_select_pressed and selection_mode == SelectionMode.MULTIPLE)
+	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT):
+		var is_multi = (multi_select_pressed and select_mode == SelectMode.MULTIPLE)
 		if event.pressed and not is_multi:
 			_deselect_all = true
 		# SelectionManager may need an "active" variable to prevent this from
