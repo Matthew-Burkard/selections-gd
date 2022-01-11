@@ -42,7 +42,7 @@ func activate(target: Node) -> bool:
 		if is_selected:
 			deselect(target)
 			return false
-		_reselect([target])
+		set_selection([target])
 		return true
 
 	var multi_select_pressed = Input.is_key_pressed(multi_select_key)
@@ -52,7 +52,7 @@ func activate(target: Node) -> bool:
 	if multi_select_pressed:
 		select(target)
 		return true
-	_reselect([target])
+	set_selection([target])
 	return true
 
 
@@ -88,6 +88,16 @@ func deselect(target: Node) -> void:
 	emit_signal("selection_changed", SelectionChange.REMOVE, target)
 
 
+func set_selection(new_selection: Array) -> void:
+	var all_selections = _selections.duplicate()
+	for node in all_selections:
+		if not new_selection.has(node):
+			deselect(node)
+	for node in new_selection:
+		if not _selections.has(node):
+			select(node)
+
+
 func _unhandled_input(event) -> void:
 	var multi_select_pressed = Input.is_key_pressed(multi_select_key)
 	# If left mouse button pressed set _deselect_all to true.
@@ -99,15 +109,5 @@ func _unhandled_input(event) -> void:
 		# SelectionManager may need an "active" variable to prevent this from
 		# being triggered by out of scope unhandled inputs.
 		elif _deselect_all:
-			_reselect([])
+			set_selection([])
 			_deselect_all = false
-
-
-func _reselect(new_selection: Array) -> void:
-	var all_selections = _selections.duplicate()
-	for node in all_selections:
-		if not new_selection.has(node):
-			deselect(node)
-	for node in new_selection:
-		if not _selections.has(node):
-			select(node)
