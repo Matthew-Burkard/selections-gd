@@ -1,5 +1,5 @@
-class_name SelectionManager
 extends Node
+class_name SelectionManager
 
 enum SelectablesChange {
 	ADD,
@@ -30,10 +30,6 @@ signal selectables_changed(change: SelectablesChange, node: Node)
 var _selectables: Array = []
 var _selections: Array = []
 var _deselect_all: bool = true
-
-
-func get_class() -> String:
-	return "SelectionManager"
 
 
 func activate(target: Node) -> bool:

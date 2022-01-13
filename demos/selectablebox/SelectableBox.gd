@@ -34,7 +34,7 @@ func _input_event(
 
 func _get_selection_manager() -> SelectionManager:
 	var node = self
-	while node.get_class() != "SelectionManager":
+	while not node is SelectionManager:
 		if "%s" % node.get_path() == "/root":
 			return null
 		node = node.get_parent()
