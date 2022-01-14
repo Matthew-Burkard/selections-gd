@@ -32,6 +32,11 @@ var _selections: Array = []
 var _deselect_all: bool = true
 
 
+## Activate a selectable Node.
+##
+## @desc:
+##     If "select_mode" is Single, toggle the selection state of this node
+##     and deselect any other selected node.
 func activate(target: Node) -> bool:
 	var is_selected = _selections.has(target)
 	if select_mode == SelectMode.SINGLE:
@@ -52,38 +57,59 @@ func activate(target: Node) -> bool:
 	return true
 
 
+## Get all Nodes registered as selectable with this SelectionManager.
 func get_selectables() -> Array:
 	return _selectables
 
 
+## Register a node as being selectable.
+##
+## desc:
+##     Emits the "selectables_changed" signal.
 func register(node: Node) -> void:
 	if not _selectables.has(node):
 		_selectables.append(node)
 		emit_signal("selectables_changed", SelectablesChange.ADD, node)
 
 
+## Unregister a node as being selectable.
 func unregister(node: Node) -> void:
 	if _selectables.has(node):
 		_selectables.erase(node)
 		emit_signal("selectables_changed", SelectablesChange.REMOVE, node)
 
 
-func select(target: Node) -> void:
+## Select the given node.
+##
+## @desc:
+##     If the node has an "on_select" method defined, it will be called.
+##     Emits the "selection_changed" signal.
+func select(node: Node, multi: bool = false) -> void:
 	_deselect_all = false
-	_selections.append(target)
-	if target.has_method("on_select"):
-		target.on_select()
-	emit_signal("selection_changed", SelectionChange.ADD, target)
+	_selections.append(node)
+	if node.has_method("on_select"):
+		node.on_select()
+	emit_signal("selection_changed", SelectionChange.ADD, node)
 
 
-func deselect(target: Node) -> void:
+## Deselect the given node.
+##
+## @desc:
+##     If the node has an "on_deselect" method defined, it will be called.
+##     Emits the "selection_changed" signal.
+func deselect(node: Node) -> void:
 	_deselect_all = false
-	_selections.erase(target)
-	if target.has_method("on_deselect"):
-		target.on_deselect()
-	emit_signal("selection_changed", SelectionChange.REMOVE, target)
+	_selections.erase(node)
+	if node.has_method("on_deselect"):
+		node.on_deselect()
+	emit_signal("selection_changed", SelectionChange.REMOVE, node)
 
-
+## Set the given Array of Nodes as selected.
+##
+## @desc:
+##     Select each Node in the Array if it's not already selected.
+##     Deselect any nodes that are selected but not in the Array.
+##     The "selection_changed" signal will be emitted for any selection changes.
 func set_selection(new_selection: Array) -> void:
 	var all_selections = _selections.duplicate()
 	for node in all_selections:
@@ -98,7 +124,10 @@ func _unhandled_input(event) -> void:
 	var multi_select_pressed = Input.is_key_pressed(multi_select_key)
 	# If left mouse button pressed set _deselect_all to true.
 	# If left button released and nothing has been added/removed, deselect all.
-	if (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT):
+	if (
+		event is InputEventMouseButton
+		and event.button_index == MOUSE_BUTTON_LEFT
+	):
 		var is_multi = (multi_select_pressed and select_mode == SelectMode.MULTI)
 		if event.pressed and not is_multi:
 			_deselect_all = true
