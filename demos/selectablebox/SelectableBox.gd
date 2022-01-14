@@ -1,15 +1,17 @@
 extends StaticBody3D
 
+@onready var box_mesh = $BoxMesh
+
 const select_shader = preload("res://demos/materials/selected/selected_material.tres")
 const normal_shader = preload("res://demos/materials/normal/normal_material.tres")
 var selection_manager: SelectionManager
 
 func on_select() -> void:
-	$BoxMesh.set_material_override(select_shader)
+	box_mesh.set_material_override(select_shader)
 
 
 func on_deselect() -> void:
-	$BoxMesh.set_material_override(normal_shader)
+	box_mesh.set_material_override(normal_shader)
 
 
 func _ready() -> void:
