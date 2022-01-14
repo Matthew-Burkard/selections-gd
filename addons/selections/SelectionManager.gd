@@ -64,7 +64,7 @@ func get_selectables() -> Array:
 
 ## Register a node as being selectable.
 ##
-## desc:
+## @desc:
 ##     Emits the "selectables_changed" signal.
 func register(node: Node) -> void:
 	if not _selectables.has(node):
