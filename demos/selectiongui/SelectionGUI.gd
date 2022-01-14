@@ -18,7 +18,9 @@ func _on_item_selected(index: int) -> void:
 	selection_manager.set_selection([get_item_metadata(index)])
 
 
-func _on_selecatables_change(change: SelectionManager.SelectablesChange, node: Node) -> void:
+func _on_selectables_change(
+	change: SelectionManager.SelectablesChange, node: Node
+) -> void:
 	if change == SelectionManager.SelectablesChange.ADD:
 		_node_to_index[node] = add_item(node.name)
 		set_item_metadata(_node_to_index[node], node)
@@ -41,7 +43,7 @@ func _ready():
 		select_mode = ItemList.SELECT_SINGLE
 	elif selection_manager.select_mode == SelectionManager.SelectMode.MULTI:
 		select_mode = ItemList.SELECT_MULTI
-	selection_manager.connect("selectables_changed", _on_selecatables_change)
+	selection_manager.connect("selectables_changed", _on_selectables_change)
 	selection_manager.connect("selection_changed", _on_selection_change)
 	connect("item_selected", _on_item_selected)
 	connect("multi_selected", _on_multi_selected)
