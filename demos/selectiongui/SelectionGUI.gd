@@ -50,7 +50,6 @@ func _ready():
 	for node in selection_manager.get_selectables():
 		_node_to_index[node] = add_item(node.name)
 		set_item_metadata(_node_to_index[node], node)
-	
 
 
 func _get_selection_manager() -> SelectionManager:
