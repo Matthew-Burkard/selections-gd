@@ -20,7 +20,7 @@ func _ready() -> void:
 
 
 func _input_event(
-	_camera: Object,
+	_camera: Camera3D,
 	event: InputEvent,
 	_click_position: Vector3,
 	_click_normal: Vector3,
